@@ -74,21 +74,23 @@ class CoffeeShop:
             file.write("House Number: {}\n".format(self.data['houseNumber']))
             file.write("----------------------------------------------\n")
 
-            for order_details in self.data['orders']:
-                file.write("\nOrder Details:\n")
-                file.write("Item: {}\n".format(order_details['item']))
-                file.write("Quantity: {}\n".format(order_details['quantity']))
-                file.write("Total Price: {}\n".format(order_details['total_price']))
+            if self.data['orders']:
+                file.write("{:<20} {:<10} {:<15}\n".format("Item", "Quantity", "Total Price"))
+                file.write("----------------------------------------------\n")
+                for order_details in self.data['orders']:
+                    item = order_details['item']
+                    quantity = order_details['quantity']
+                    total_price = round(order_details['total_price'], 2)
+                    file.write("{:<20} {:<10} {:<15}\n".format(item, quantity, total_price))
 
-            subtotal = sum(order['total_price'] for order in self.data['orders'])
-            file.write("------------------------------------------------------\n")
-            file.write("Subtotal: £{:,.2f}\n".format(subtotal))
+                subtotal = sum(order['total_price'] for order in self.data['orders'])
+                vat = subtotal * 0.2
+                total_amount = subtotal + vat
 
-            tax_rate = 0.20
-            tax_amount = subtotal * tax_rate
-            total_amount = subtotal + tax_amount
-            file.write("VAT (20%): £{:,.2f}\n".format(tax_amount))
-            file.write("Total Amount: £{:,.2f}\n".format(total_amount))
+                file.write("----------------------------------------------\n")
+                file.write("{:<30} £{:,.2f}\n".format("Subtotal:", subtotal))
+                file.write("{:<30} £{:,.2f}\n".format("VAT (20%):", vat))
+                file.write("{:<30} £{:,.2f}\n".format("Total Amount:", total_amount))
 
         with open("receipt.txt", "r") as file:
             receipt_content = file.read()
