@@ -1,1 +1,169 @@
 
+
+Receipt for Chi
+----------------------------------------------
+Name: Chi
+Postcode: dy
+House Number: 3
+
+Order Details:
+Item: Hot Chocolate
+Quantity: 4
+Total Price: 16.0
+
+Receipt for Fg
+----------------------------------------------
+Name: Fg
+Postcode: d
+House Number: f3
+
+Order Details:
+Item: Tea
+Quantity: 3
+Total Price: 6.0
+
+Receipt for Chi
+----------------------------------------------
+Name: Chi
+Postcode: dy
+House Number: 3
+
+Order Details:
+Item: Coffee
+Quantity: 2
+Total Price: 6.0
+
+Receipt for Chi
+----------------------------------------------
+Name: Chi
+Postcode: dy
+House Number: 2
+
+Order Details:
+Item: Hot Chocolate
+Quantity: 2
+Total Price: 8.0
+
+Receipt for Chi
+----------------------------------------------
+Name: Chi
+Postcode: dkw
+House Number: 2
+
+Order Details:
+Item: Tuna Sandwich
+Quantity: 2
+Total Price: 6.98
+
+Order Details:
+Item: Hot Chocolate
+Quantity: 2
+Total Price: 8.0
+
+Order Details:
+Item: Tuna Sandwich
+Quantity: 2
+Total Price: 6.98
+
+Order Details:
+Item: Tea
+Quantity: 4
+Total Price: 6.0
+
+Receipt for 4
+----------------------------------------------
+Name: 4
+Postcode: 22
+House Number: 3
+
+Receipt for Ch
+----------------------------------------------
+Name: Ch
+Postcode: 33
+House Number: 1
+
+Order Details:
+Item: Hot Chocolate
+Quantity: 3
+Total Price: 12.0
+
+Order Details:
+Item: Tea
+Quantity: 2
+Total Price: 3.0
+
+Invoice for Ja
+----------------------------------------------
+Name: Ja
+Postcode: ee
+House Number: 3
+----------------------------------------------
+
+Invoice for Gh
+----------------------------------------------
+Name: Gh
+Postcode: hj
+House Number: 7
+----------------------------------------------
+
+Order Details:
+Item: Tuna Sandwich
+Quantity: 3
+Total Price: 10.47
+
+Order Details:
+Item: Tea
+Quantity: 2
+Total Price: 3.0
+------------------------------------------------------
+Subtotal: £13.47
+
+Invoice for Gh
+----------------------------------------------
+Name: Gh
+Postcode: hj
+House Number: 7
+----------------------------------------------
+
+Order Details:
+Item: Tuna Sandwich
+Quantity: 3
+Total Price: 10.47
+
+Order Details:
+Item: Tea
+Quantity: 2
+Total Price: 3.0
+
+Order Details:
+Item: Turkey Sandwich
+Quantity: 2
+Total Price: 13.0
+------------------------------------------------------
+Subtotal: £26.47
+
+Invoice for Jaje
+----------------------------------------------
+Name: Jaje
+Postcode: ey
+House Number: 3
+----------------------------------------------
+
+Order Details:
+Item: Hot Chocolate
+Quantity: 2
+Total Price: 8.0
+
+Order Details:
+Item: Beef Sandwich
+Quantity: 2
+Total Price: 8.0
+
+Order Details:
+Item: Turkey Sandwich
+Quantity: 2
+Total Price: 13.0
+------------------------------------------------------
+Subtotal: £29.00
+VAT (20%): £5.80
+Total Amount: £34.80
