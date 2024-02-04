@@ -59,7 +59,6 @@ class CoffeeShop:
                 else:
                     sugar_price = 0.0
                 total_price = (item_price + sugar_price) * quantity
-                # self.data['order'] = {'item': selected_item, 'quantity': quantity, 'total_price': total_price}
             
             self.data['orders'].append({'item': selected_item, 'quantity': quantity, 'total_price': total_price})
 
