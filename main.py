@@ -60,19 +60,23 @@ class CoffeeShop:
 
     def receipt(self):
         print()
-        print("Receipt for {}".format(self.data['name']))
-        print("----------------------------------------------")
-        print("Name: {}".format(self.data['name']))
-        print("Postcode: {}".format(self.data['postcode']))
-        print("House Number: {}".format(self.data['houseNumber']))
+        with open("receipt.txt", "a") as file:
 
-        order_details = self.data['order']
-        print("\nOrder Details:")
-        print("Item: {}".format(order_details['item']))
-        print("Quantity: {}".format(order_details['quantity']))
-        print("Total Price: {}".format(order_details['total_price']))
+            file.write("\nReceipt for {}\n".format(self.data['name']))
+            file.write("----------------------------------------------\n")
+            file.write("Name: {}\n".format(self.data['name']))
+            file.write("Postcode: {}\n".format(self.data['postcode']))
+            file.write("House Number: {}\n".format(self.data['houseNumber']))
 
+            order_details = self.data['order']
+            file.write("\nOrder Details:\n")
+            file.write("Item: {}\n".format(order_details['item']))
+            file.write("Quantity: {}\n".format(order_details['quantity']))
+            file.write("Total Price: {}\n".format(order_details['total_price']))
 
+        with open("receipt.txt", "r") as file:
+            receipt_content = file.read()
+            print(receipt_content)
 
 coffee_shop = CoffeeShop()
 
@@ -86,4 +90,5 @@ while True:
     second_order = input("Do you want to place another order? (y/n): ")
     if second_order.lower() != "y":
         break
+print("Thanks for your order")
         
