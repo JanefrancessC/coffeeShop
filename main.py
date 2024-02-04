@@ -75,9 +75,15 @@ class CoffeeShop:
 
 
 coffee_shop = CoffeeShop()
-coffee_shop.logoOutput()
-coffee_shop.userDetails()
-coffee_shop.display_menu()
-coffee_shop.orderSelection()
-coffee_shop.receipt()
+
+while True:
+    coffee_shop.logoOutput()
+    coffee_shop.userDetails()
+    coffee_shop.display_menu()
+    coffee_shop.orderSelection()
+    coffee_shop.receipt()
+
+    second_order = input("Do you want to place another order? (y/n): ")
+    if second_order.lower() != "y":
+        break
         
