@@ -91,45 +91,6 @@ def createOrder(item, price, quantity, postCode, Total, menu):
         print(f"postCode:    {postCode}")
         print(f"Doornumber:  {Doornumber}")
 
-def placeorder():
-    while True:
-        orderSelection = int(input("Use the number to select the order "))
-
-        if orderSelection < 1 or orderSelection > 6:
-            orderSelection = input("Enter a number between 1 and 6 only")
-
-        if orderSelection == 1:
-            print("You have selected a coffee")
-            quantity = int(input("How many of these would you like"))
-            price = 3.00
-            item = "Coffee"
-            sugar_preference = input(f"Would you like sugar with your {item} for 50p extra (yes/no):")
-
-            if sugar_preference.lower() == "yes":
-                print(f"Sugar will be added to your {item}.")
-                price = 3.50
-            elif sugar_preference.lower() == "no":
-                print(f"No sugar will be added to your {item}")
-        elif orderSelection == 2:
-            print("You have selected a Tea.")
-            quantity = int(input("How many would of these would you like"))
-            price = 1.50
-            item = "Tea"
-        elif orderSelection == "3":
-            print("You have selected a Hot Chocolate")
-            quantity = int(input("How many of these would you like"))
-            price = 4.00
-            item = "Hot Chocolate"
-        elif orderSelection == "4":
-            print("You have selected a Tuna Sandwich")
-            price = 3.49
-        elif orderSelection == "5":
-            print("You have selected a beef sandwich")
-            price = 4.00
-        elif orderSelection == "6":
-            print("You have selected a Turkey Sandwich")
-            price = 6.50
-
 # Complete validation e.g. only let items choose quantity between 1 and 10 or ensure names inputs have a value entered in them
 # Declare all variables here
 
