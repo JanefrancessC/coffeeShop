@@ -13,6 +13,7 @@ class CoffeeShop:
             {"name": "Turkey Sandwich", "price": 6.50}
         ]
         self.max_group_orders = 5
+        self.current_user = None
 
     def logoOutput(self):
         f = Figlet(font="small")
@@ -39,16 +40,14 @@ class CoffeeShop:
         attempts = 0
 
         while attempts < max_attempts:
-            name = input("Enter your name: ")
+            name = input("Enter your name: ").capitalize()
             password = input("Enter your password: ")
             
             for user in self.data['users']:
                 if user['name'].lower() == name.lower() and user['password'] == password:
-                    self.data['name'] = user['name']
-                    self.data['postcode'] = user['postcode']
-                    self.data['houseNumber'] = user['houseNumber']
+                    self.current_user = user
                     print("\nHello {}, Welcome back to Hmaidi's Coffee Shop\n".format(user['name']))
-                    return
+                    return True
             
             attempts += 1
             trials_left = max_attempts - attempts
@@ -56,6 +55,8 @@ class CoffeeShop:
                 print("Invalid username or password. You have", trials_left, "attempt(s) left.")
             else:
                 print("No more attempts left. Please try again later.")
+        
+        return False
 
     
     def register(self):
@@ -67,7 +68,8 @@ class CoffeeShop:
         self.data['users'].append({'name': name, 'postcode': postcode, 'houseNumber': houseNumber,
                                     'password': password})
         self.save_users()
-        print("Account created successfully!")
+        print("\nAccount created successfully!\n")
+        return True
 
     def userOptions(self):
         print("\n1. Place an Order")
@@ -80,6 +82,7 @@ class CoffeeShop:
             self.viewInvoices()
         elif option == '3':
             print("Logging out...")
+            self.current_user = None
             return
         else:
             print("Invalid option. Please select a valid option.")
@@ -95,8 +98,8 @@ class CoffeeShop:
         order_details = {'items': []}
         
         print("\nHere is our whole menu:")
-        for i, item in enumerate(self.menu, 1):
-            print("{}. {}: £{:.2f}".format(i, item['name'], item['price']))
+        for i, item in enumerate(self.menu):
+            print("{}. {}: £{:.2f}".format(i + 1, item['name'], item['price']))
 
         while True:
             order = int(input("\nUse the number to select the order: (Enter 0 to finish order processing): "))
@@ -135,11 +138,11 @@ class CoffeeShop:
 
     def receipt(self, order_details):
         with open("receipt.txt", "a") as file:
-            file.write("\nInvoice for {}\n".format(self.data.get('name', 'Unknown')))
+            file.write("\nInvoice for {}".format(self.current_user['name']))
             file.write("----------------------------------------------\n")
-            file.write("Name: {}\n".format(self.data.get('name', 'Unknown')))
-            file.write("Postcode: {}\n".format(self.data.get('postcode', 'Unknown')))
-            file.write("House Number: {}\n".format(self.data.get('houseNumber', 'Unknown')))
+            file.write("Name: {}".format(self.current_user['name']))
+            file.write("Postcode: {}".format(self.current_user['postcode']))
+            file.write("House Number: {}".format(self.current_user['houseNumber']))
             file.write("----------------------------------------------\n")
 
             if order_details:
@@ -156,35 +159,36 @@ class CoffeeShop:
                 total_amount = subtotal + vat
 
                 file.write("----------------------------------------------\n")
-                file.write("{:<30} £{:,.2f}\n".format("Subtotal:", subtotal))
-                file.write("{:<30} £{:,.2f}\n".format("VAT (20%):", vat))
-                file.write("{:<30} £{:,.2f}\n".format("Total Amount:", total_amount))
+                file.write("{:<30} £{:,.2f}".format("Subtotal:", subtotal))
+                file.write("{:<30} £{:,.2f}".format("VAT (20%):", vat))
+                file.write("{:<30} £{:,.2f}".format("Total Amount:", total_amount))
 
         print("\nReceipt saved successfully.")
 
-
     def viewInvoices(self):
-        current_user_info = {
-            'name': self.data.get('name', 'Unknown'),
-            'postcode': self.data.get('postcode', 'Unknown'),
-            'houseNumber': self.data.get('houseNumber', 'Unknown')
-        }
-        try:
-            with open("receipt.txt", "r") as file:
-                past_invoices = file.read().split('\n\n')
-                if past_invoices:
-                    print("\nPast Invoices for {}:\n".format(current_user_info['name']))
+        if self.current_user:
+            current_user_info = {
+                'name': self.current_user['name'],
+                'postcode': self.current_user['postcode'],
+                'houseNumber': self.current_user['houseNumber']
+            }
+            try:
+                with open("receipt.txt", "r") as file:
+                    past_invoices = file.read().split('\n\n')
+                    user_invoices = []
                     for invoice in past_invoices:
                         if all(info in invoice for info in current_user_info.values()):
+                            user_invoices.append(invoice)
+                    if user_invoices:
+                        print("\nPast Invoices for {}:\n".format(current_user_info['name']))
+                        for invoice in user_invoices:
                             print(invoice)
-                    if not any(info in invoice for info in current_user_info.values() for invoice in past_invoices):
+                    else:
                         print("No past invoices found for {}.".format(current_user_info['name']))
-                else:
-                    print("\nNo past invoices found for {}.".format(current_user_info['name']))
-        except FileNotFoundError:
-            print("\nNo past invoices found for {}.".format(current_user_info['name']))
-
-
+            except FileNotFoundError:
+                print("\nNo past invoices found for {}.".format(current_user_info['name']))
+        else:
+            print("Please login first to view invoices.")
 
     def run(self):
         self.logoOutput()
@@ -196,29 +200,35 @@ class CoffeeShop:
             if not logged_in:
                 print("1. Login")
                 print("2. Register")
+                print("4. Exit")
+                choice = input("\nChoose an option: ")
+                if choice == '1':
+                    self.login()
+                    if self.current_user:
+                        logged_in = True
+                elif choice == '2':
+                    if self.register():
+                        continue
+                elif choice == '4':
+                    break
             else:
-                print("\nWhat would you like to do?:")
+                print("\nWhat would you like to do?")
                 print("1. Place an Order")
                 print("2. View Past Invoices")
                 print("3. Logout")
-            print("4. Exit")
-            choice = input("\nChoose an option: ")
-            if choice == '1' and not logged_in:
-                self.login()
-                if 'name' in self.data:
-                    logged_in = True  
-            elif choice == '1' and logged_in:
-                self.placeOrder()
-            elif choice == '2' and logged_in:
-                self.viewInvoices()
-            elif choice == '3' and logged_in:
-                logged_in = False  
-            elif choice == '4':
-                break
-
+                print("4. Exit")
+                option = input("\nSelect an option: ")
+                if option == '1':
+                    self.placeOrder()
+                elif option == '2':
+                    self.viewInvoices()
+                elif option == '3':
+                    print("Logging out...")
+                    logged_in = False
+                elif option == '4':
+                    break
 
 if __name__ == "__main__":
     coffee_shop = CoffeeShop()
     coffee_shop.run()
     print("Thank you for visiting Hmaidi's Coffee Shop")
-
